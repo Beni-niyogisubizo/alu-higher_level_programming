@@ -1,19 +1,18 @@
 #!/usr/bin/python3
-"""Fetches a URL and displays the response body in a specific format."""
+"""
+This script fetches the status from a given URL using the urllib library.
+"""
 
-import requests
+import urllib.request
 
-if __name__ == "__main__":
-    # Define the URL to fetch
-    url = "http://0.0.0.0:5050/status"
-    try:
-        response = requests.get(url)
-        response.raise_for_status()  # Check for HTTP request errors
-        content = response.text
+url = 'https://intranet.hbtn.io/status'
+if url.startswith('https://'):
+    url = 'https://alu-intranet.hbtn.io/status'
 
+if _name_ == "_main_":
+    with urllib.request.urlopen(url) as res:
+        content = res.read()
         print("Body response:")
         print("\t- type: {}".format(type(content)))
         print("\t- content: {}".format(content))
-    except requests.exceptions.RequestException as e:
-        print("Error fetching URL: {}".format(e))
-
+        print("\t- utf8 content: {}".format(content.decode('utf-8')))
